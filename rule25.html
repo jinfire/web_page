@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>달러환율</title>
+    <!-- Link to your external CSS file -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <h1>달러환율</h1>
+    </header>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="percent.html" id="perNav">증가값 계산</a>
+        <a href="rule25.html" id="rule25Nav">2.5% Rule</a>
+        <a href="rule5.html" id="rule5Nav">5% Rule</a>
+    </nav>
+
+    <main id="exchangeContent">
+        <!-- Content will be dynamically loaded here -->
+    </main>
+
+    <div id="mainContent">
+
+        <main id="rule25">
+            <h2>2.5% Rule</h2>
+            <input type="number" id="ph25" placeholder="Enter value for ph">
+            <button id="calB2">Calculate</button>
+            <table id="decTable2">
+                <thead>
+                    <tr>
+                        <th>%</th>
+                        <th>Value</th>
+                        <!-- Add more columns for other percentage decreases if needed -->
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </main>
+
+    <footer>
+        © 2024 Your Website. All rights reserved.
+    </footer>
+
+    <script>
+        // Fetch content from the server and inject it into the main part of the body
+        fetch("http://localhost:3000")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('exchangeContent').innerHTML = data;
+            })
+            .catch(error => console.error('Error fetching exchange content:', error));
+
+        function calculateDecreasedValues(id,decPer, tableId) {
+            const ph = parseFloat(document.getElementById(`${id}`).value);
+
+            if (!isNaN(ph)) {
+                const tableBody = document.querySelector(`#${tableId} tbody`);
+                tableBody.innerHTML = ''; // Clear previous results
+
+                // Loop to generate rows for the table
+                for (let i = 0; i < 10; i++) {
+                    const newRow = document.createElement('tr');
+                    const incrementValue = (decPer * (i + 1)).toFixed(2);
+                    const incCell = document.createElement('td');
+                    incCell.textContent = incrementValue;
+                    newRow.appendChild(incCell);
+
+                    const decreasePercent = decPer * (i + 1);
+                    const decreasedValue = (ph - (ph * decreasePercent / 100)).toFixed(2);
+                    const decCell = document.createElement('td');
+                    decCell.textContent = decreasedValue;
+                    newRow.appendChild(decCell);
+
+                    tableBody.appendChild(newRow);
+                }
+            } else {
+                alert("Please enter a valid number for ph.");
+            }
+        }
+
+        //2.5
+        // Event listener for the "preNav" button
+        document.getElementById('rule25Nav').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent default link behavior
+            document.getElementById('rule25').style.display = 'block';
+        });
+
+        // Event listener to trigger calculation when the Calculate button is clicked
+        document.getElementById('calB2').addEventListener('click', function() {
+            calculateDecreasedValues('ph25',2.5, 'decTable2');
+        });
+
+
+
+    </script>
+
+</body>
+
+</html>

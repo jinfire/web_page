@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>달러환율</title>
+    <!-- Link to your external CSS file -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <h1>달러환율</h1>
+    </header>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="percent.html" id="perNav">증가값 계산</a>
+        <a href="rule25.html" id="rule25Nav">2.5% Rule</a>
+        <a href="rule5.html" id="rule5Nav">5% Rule</a>
+    </nav>
+
+    <main id="exchangeContent">
+        <!-- Content will be dynamically loaded here -->
+    </main>
+
+    <div id="mainContent">
+        <main id="percentile">
+            <h2>증가값 계산</h2>
+            <input type="number" id="from" placeholder="Enter starting value">
+            <input type="number" id="to" placeholder="Enter ending value">
+            <div id="result"></div> <!-- Output result will be displayed here -->
+        </main>
+    </div>
+
+    <footer>
+        © 2024 Your Website. All rights reserved.
+    </footer>
+
+    <script>
+        // Fetch content from the server and inject it into the main part of the body
+        fetch("http://localhost:3000")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('exchangeContent').innerHTML = data;
+            })
+            .catch(error => console.error('Error fetching exchange content:', error));
+
+        //percentile
+        function calculateResult() {
+            const a = parseFloat(document.getElementById('from').value);
+            const b = parseFloat(document.getElementById('to').value);
+
+            if (!isNaN(a) && !isNaN(b)) {
+                const result = ((b - a) / a) * 100;
+                document.getElementById('result').textContent = `Result: ${result.toFixed(2)}%`;
+            } else {
+                document.getElementById('result').textContent = "Please enter valid numbers for 'from' and 'to'.";
+            }
+        }
+
+         // Function to show specific content and hide others
+        function showContent(contentId) {
+            // Hide all content first
+            const contents = document.querySelectorAll('main');
+            contents.forEach(content => {
+                content.style.display = 'none';
+            });
+
+            // Show the exchangeContent
+            const exchangeContent = document.getElementById('exchangeContent');
+            exchangeContent.style.display = 'block';
+
+            // Show the selected content
+            const selectedContent = document.getElementById(contentId);
+            selectedContent.style.display = 'block';
+        }
+
+
+        // Event listener to trigger calculation when inputs change
+        document.getElementById('to').addEventListener('input', function() {
+            calculateResult();
+        });
+
+        // Event listener for the "perNav" button
+        document.getElementById('perNav').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent default link behavior
+            showContent('percentile');
+        });
+
+    </script>
+
+</body>
+
+</html>

@@ -4,27 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Website Title</title>
+    <title>달러환율</title>
     <!-- Link to your external CSS file -->
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <header>
-        <h1>Welcome to Your Website</h1>
+        <h1>달러환율</h1>
     </header>
 
     <nav>
-        <a href="#">Home</a>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
+        <a href="index.html">Home</a>
+        <a href="percent.html" id="perNav">증가값 계산</a>
+        <a href="rule25.html" id="rule25Nav">2.5% Rule</a>
+        <a href="rule5.html" id="rule5Nav">5% Rule</a>
     </nav>
 
     <main id="exchangeContent">
         <!-- Content will be dynamically loaded here -->
-        <p>
-            다른 값들을 보고싶나?
-        </p>
     </main>
 
     <footer>
@@ -33,7 +31,7 @@
 
     <script>
         // Fetch content from the server and inject it into the main part of the body
-        fetch('http://localhost:3000/exchange')
+        fetch("http://localhost:3000")
             .then(response => response.text())
             .then(data => {
                 document.getElementById('exchangeContent').innerHTML = data;

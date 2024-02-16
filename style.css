@@ -28,6 +28,33 @@ main {
     text-align: justify;
 }
 
+/* Apply styles to all tables */
+table {
+    width: 100%;
+    border-collapse: collapse; /* Collapse border spacing */
+    border: 1px solid #ddd; /* Add a border around the table */
+}
+
+/* Apply styles to table headers */
+th {
+    background-color: #f2f2f2; /* Set background color for header cells */
+    border: 1px solid #ddd; /* Add a border to header cells */
+    padding: 1%; /* Add padding to header cells */
+    text-align: left; /* Align text to the center within header cells */
+}
+
+/* Apply styles to table cells */
+td {
+    border: 1px solid #ddd; /* Add a border to cells */
+    padding: 1%; /* Add padding to cells */
+    text-align: left; /* Align text to the center within header cells */
+}
+
+/* Apply alternate row colors to improve readability */
+tr:nth-child(even) {
+    background-color: #f9f9f9; /* Set background color for even rows */
+}
+
 footer {
     text-align: center;
     color: #888;
