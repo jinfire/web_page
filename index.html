@@ -31,7 +31,7 @@
 
     <script>
         // Fetch content from the server and inject it into the main part of the body
-        fetch("http://localhost:3000")
+        fetch("https://funcs-app-latest.fly.dev")
             .then(response => response.text())
             .then(data => {
                 document.getElementById('exchangeContent').innerHTML = data;
