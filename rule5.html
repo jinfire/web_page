@@ -64,7 +64,7 @@
                 tableBody.innerHTML = ''; // Clear previous results
 
                 // Loop to generate rows for the table
-                for (let i = 0; i < 10; i++) {
+                for (let i = -3; i < 10; i++) {
                     const newRow = document.createElement('tr');
                     const incrementValue = (decPer * (i + 1)).toFixed(2);
                     const incCell = document.createElement('td');
